@@ -39,7 +39,7 @@ const operatorsAliases = {
 };
 
 module.exports = function (app) {
-  const connectionString = `postgres://${process.env.PGNAME}:${process.env.PGPASS}@${process.env.PGHOST}:${process.env.PGPORT}/postgres`
+  const connectionString = app.get('postgres');
   const sequelize = new Sequelize(connectionString, {
     dialect: 'postgres',
     logging: false,
