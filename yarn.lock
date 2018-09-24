@@ -86,6 +86,12 @@
   dependencies:
     debug "^4.0.0"
 
+"@feathersjs/errors@^3.3.4":
+  version "3.3.4"
+  resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.4.tgz#7dd591626ba57d1e8074464235b4d23906833ca7"
+  dependencies:
+    debug "^4.0.0"
+
 "@feathersjs/express@^1.2.6":
   version "1.2.6"
   resolved "https://registry.yarnpkg.com/@feathersjs/express/-/express-1.2.6.tgz#4046e5b2be41908ee7b1b82bdd392c92d7493ce7"
@@ -1705,6 +1711,10 @@ is-descriptor@^1.0.0, is-descriptor@^1.0.2:
     is-accessor-descriptor "^1.0.0"
     is-data-descriptor "^1.0.0"
     kind-of "^6.0.2"
+
+is-empty-object@^1.1.1:
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/is-empty-object/-/is-empty-object-1.1.1.tgz#86d5d4d5c5229cea31ec2772f528bf5efc519f23"
 
 is-extendable@^0.1.0, is-extendable@^0.1.1:
   version "0.1.1"
