@@ -44,11 +44,13 @@
     "feathers-sequelize": "^3.1.2",
     "helmet": "^3.13.0",
     "is-empty-object": "^1.1.1",
+    "nanoid": "^1.2.5",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0",
+    "sequelize-cli": "^4.1.1",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },

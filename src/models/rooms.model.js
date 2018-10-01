@@ -5,21 +5,13 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const users = sequelizeClient.define('users', {
 
-    email: {
+  const rooms = sequelizeClient.define('rooms', {
+    roomId: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    },
-
-    googleId: { type: Sequelize.STRING },
-    facebookId: { type: Sequelize.STRING },
-
+      unique: true,
+    }
   }, {
       hooks: {
         beforeCount(options) {
@@ -28,14 +20,18 @@ module.exports = function (app) {
       }
     });
 
+  // Define join table for RoomUsers
+  const RoomUsers = sequelizeClient.define('roomUsers', {
+    creator: DataTypes.STRING
+  })
+
   // eslint-disable-next-line no-unused-vars
-  users.associate = function (models) {
+  rooms.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
 
-    // RoomUsers join table is defined in rooms.model.js
-    users.belongsToMany(models.rooms, { through: 'RoomUsers' });
+    rooms.belongsToMany(models.users, { through: RoomUsers });
   };
 
-  return users;
+  return rooms;
 };
