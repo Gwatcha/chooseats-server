@@ -1,24 +1,13 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const hooks = require('feathers-authentication-hooks');
+
 const createRoomID = require('../../hooks/room_hooks');
 const addAssociations = require('../../hooks/add_associations');
 
 module.exports = {
   before: {
-    all: [],
-    find: [
-      context => {
-        const sequelize = context.params.sequelize || {};
-        sequelize.raw = true;
-        sequelize.include = [
-          {
-            model: context.app.sequelizeClient,
-            as: 'roomUsers'
-          }
-        ];
-
-        return context;
-      }
-    ],
+    all: [authenticate('jwt')],
+    find: [],
     get: [],
     create: [createRoomID],
     update: [],
@@ -30,7 +19,15 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [context => {
+      context.app.service('rooms').get(context.result.id).then((room) => {
+        console.log(context.service.Model.associations);
+        room.addUser(context.params.user.id, { through: { admin: true } });
+      }).catch(
+        error => console.log(error)
+      );
+    }
+    ],
     update: [],
     patch: [],
     remove: []
