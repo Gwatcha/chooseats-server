@@ -22,7 +22,7 @@ module.exports = function (app) {
 
   // Define join table for RoomUsers
   const RoomUsers = sequelizeClient.define('roomUsers', {
-    admin: DataTypes.BOOLEAN
+    admin: { type: DataTypes.BOOLEAN, defaultValue: false }
   })
 
   // eslint-disable-next-line no-unused-vars
