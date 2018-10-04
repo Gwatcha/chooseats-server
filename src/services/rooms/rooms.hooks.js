@@ -4,6 +4,7 @@ const hooks = require('feathers-authentication-hooks');
 const includeUser = require('../../hooks/include_user');
 const createRoomID = require('./hooks/create_room_id');
 const associateRoomAdmin = require('./hooks/associate_room_admin');
+const joinRoom = require('./hooks/join_room');
 
 module.exports = {
   before: {
@@ -12,7 +13,7 @@ module.exports = {
     get: [includeUser],
     create: [createRoomID],
     update: [],
-    patch: [],
+    patch: [joinRoom],
     remove: []
   },
 
