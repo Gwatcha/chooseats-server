@@ -86,7 +86,7 @@
   dependencies:
     debug "^4.0.0"
 
-"@feathersjs/errors@^3.3.4":
+"@feathersjs/errors@^3.3.0", "@feathersjs/errors@^3.3.4":
   version "3.3.4"
   resolved "https://registry.yarnpkg.com/@feathersjs/errors/-/errors-3.3.4.tgz#7dd591626ba57d1e8074464235b4d23906833ca7"
   dependencies:
@@ -1334,6 +1334,14 @@ fast-levenshtein@~2.0.4:
 fast-safe-stringify@^2.0.4:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-safe-stringify/-/fast-safe-stringify-2.0.6.tgz#04b26106cc56681f51a044cfc0d76cf0008ac2c2"
+
+feathers-authentication-hooks@^0.3.1:
+  version "0.3.1"
+  resolved "https://registry.yarnpkg.com/feathers-authentication-hooks/-/feathers-authentication-hooks-0.3.1.tgz#a6c595ef626f5c289492d304ad6364ae547dae76"
+  dependencies:
+    "@feathersjs/errors" "^3.3.0"
+    debug "^3.1.0"
+    lodash "^4.17.5"
 
 feathers-sequelize@^3.1.2:
   version "3.1.2"
