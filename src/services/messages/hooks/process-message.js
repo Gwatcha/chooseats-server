@@ -16,8 +16,8 @@ module.exports = function (options = {}) {
     }
 
     // This room must exist
-    if ( context.app.service('rooms').Model.findOne({
-          where: {room_id: data.room_id}) == null) {
+    if ( context.app.service('rooms').Model.findOne(
+      {where: {room_id: data.room_id}}) == null) {
       throw new Error('Room with room_id not found');
     }
 
