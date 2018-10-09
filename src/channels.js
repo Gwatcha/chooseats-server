@@ -4,10 +4,8 @@ module.exports = function(app) {
     return;
   }
 
-    // Fired everytime a new real-time connection is established. 
   app.on('connection', connection => {
     // On a new real-time connection, add it to the anonymous channel
-      // *Later on change this to ROOMID channel?
     app.channel('anonymous').join(connection);
   });
 
