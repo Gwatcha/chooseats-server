@@ -12,6 +12,7 @@ module.exports = context => {
     const data = dataIsArray ? context.data : [context.data];
 
     var randomID = generate(alphabet, 6);
-    if (models.
-    context.data.roomId =     return (context);
+    context.data.roomId = randomID;
+
+    return (context);
 };
