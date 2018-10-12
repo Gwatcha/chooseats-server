@@ -31,6 +31,8 @@ module.exports = function (app) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
 
     rooms.belongsToMany(models.users, { through: RoomUsers });
+    rooms.hasMany(models.votes);
+    rooms.hasMany(models.restaurants);
   };
 
   return rooms;
