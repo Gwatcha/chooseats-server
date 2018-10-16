@@ -5,21 +5,11 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const users = sequelizeClient.define('users', {
-
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      unique: true
-    },
-    password: {
+  const votes = sequelizeClient.define('votes', {
+    text: {
       type: DataTypes.STRING,
       allowNull: false
-    },
-
-    googleId: { type: Sequelize.STRING },
-    facebookId: { type: Sequelize.STRING },
-
+    }
   }, {
       hooks: {
         beforeCount(options) {
@@ -29,16 +19,12 @@ module.exports = function (app) {
     });
 
   // eslint-disable-next-line no-unused-vars
-  users.associate = function (models) {
+  votes.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
-
-    // RoomUsers join table is defined in rooms.model.js
-    users.belongsToMany(models.rooms, { through: 'RoomUsers' });
-
-    users.hasMany(models.votes);
-    users.hasMany(models.restaurants);
+    votes.belongsTo(models.users);
+    votes.belongsTo(models.rooms);
   };
 
-  return users;
+  return votes;
 };
