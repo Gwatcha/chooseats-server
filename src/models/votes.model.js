@@ -11,12 +11,12 @@ module.exports = function (app) {
       allowNull: false
     }
   }, {
-      hooks: {
-        beforeCount(options) {
-          options.raw = true;
-        }
+    hooks: {
+      beforeCount(options) {
+        options.raw = true;
       }
-    });
+    }
+  });
 
   // eslint-disable-next-line no-unused-vars
   votes.associate = function (models) {

@@ -13,17 +13,17 @@ module.exports = function (app) {
       unique: true,
     }
   }, {
-      hooks: {
-        beforeCount(options) {
-          options.raw = true;
-        }
+    hooks: {
+      beforeCount(options) {
+        options.raw = true;
       }
-    });
+    }
+  });
 
   // Define join table for RoomUsers
   const roomUsers = sequelizeClient.define('roomUsers', {
     admin: { type: DataTypes.BOOLEAN, defaultValue: false }
-  })
+  });
 
   // eslint-disable-next-line no-unused-vars
   rooms.associate = function (models) {
