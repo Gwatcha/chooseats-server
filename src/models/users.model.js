@@ -34,7 +34,7 @@ module.exports = function (app) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
 
     // RoomUsers join table is defined in rooms.model.js
-    users.belongsToMany(models.rooms, { through: 'RoomUsers' });
+    users.belongsToMany(models.rooms, { through: 'roomUsers' });
 
     users.hasMany(models.votes);
     users.hasMany(models.restaurants);

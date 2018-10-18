@@ -7,7 +7,7 @@ module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
 
   const rooms = sequelizeClient.define('rooms', {
-    roomId: {
+    roomCode: {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
@@ -21,7 +21,7 @@ module.exports = function (app) {
     });
 
   // Define join table for RoomUsers
-  const RoomUsers = sequelizeClient.define('roomUsers', {
+  const roomUsers = sequelizeClient.define('roomUsers', {
     admin: { type: DataTypes.BOOLEAN, defaultValue: false }
   })
 
@@ -30,7 +30,7 @@ module.exports = function (app) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
 
-    rooms.belongsToMany(models.users, { through: RoomUsers });
+    rooms.belongsToMany(models.users, { through: roomUsers });
     rooms.hasMany(models.votes);
     rooms.hasMany(models.restaurants);
   };

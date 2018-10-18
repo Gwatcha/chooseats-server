@@ -3,6 +3,6 @@ const alphabet = '1234567890ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
 module.exports = context => {
     console.log(context);
-    context.data.roomId = generate(alphabet, 6);
+    context.data.roomCode = generate(alphabet, 6);
     return (context);
 };
