@@ -22,6 +22,7 @@ module.exports = function (app) {
   restaurants.associate = function (models) {
     restaurants.belongsTo(models.users);
     restaurants.belongsTo(models.rooms);
+    restaurants.hasMany(models.votes);
   };
 
   return restaurants;

@@ -9,11 +9,13 @@ module.exports = function (app) {
     app.channel('anonymous').join(connection);
   });
 
-  app.on('login', (authResult, { connection }) => {
+  app.on('login', async (authResult, { connection }) => {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (connection) {
       // Obtain the logged in user from the connection
+      console.log(connection);
+
       const user = connection.user;
 
       // The connection is no longer anonymous, remove it
@@ -28,9 +30,14 @@ module.exports = function (app) {
       // if(user.isAdmin) { app.channel('admins').join(connection); }
 
       // If the user has joined e.g. chat rooms
-      console.log(user);
-
-      if (Array.isArray(user.rooms)) user.rooms.forEach(room => app.channel(`rooms/${room.id}`).join(channel));
+      try {
+        const rooms = await app.service('rooms').find({ user });
+        rooms.data.forEach(room => {
+          app.channel(`rooms/${room.dataValues.id}`).join(connection);
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
@@ -55,6 +62,7 @@ module.exports = function (app) {
 
   // With the userid and email organization from above you can easily select involved users
   app.service('rooms').publish((data) => {
+    console.log(`Publishing room #${data.id} events to all users in that room`);
     return [
       app.channel(`rooms/${data.id}`)
     ];

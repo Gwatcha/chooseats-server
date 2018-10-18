@@ -24,6 +24,7 @@ module.exports = function (app) {
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
     votes.belongsTo(models.users);
     votes.belongsTo(models.rooms);
+    votes.belongsTo(models.restaurants);
   };
 
   return votes;
