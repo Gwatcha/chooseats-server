@@ -14,8 +14,8 @@ steps:
   args:
   - 'set'
   - 'image'
-  - 'deployment/test-deployment'
-  - 'test-deployment=gcr.io/$PROJECT_ID/image:$REVISION_ID'
+  - 'deployment/production'
+  - 'production=gcr.io/$PROJECT_ID/image:$REVISION_ID'
   env:
   - 'CLOUDSDK_COMPUTE_ZONE=us-central1-a'
   - 'CLOUDSDK_CONTAINER_CLUSTER=chooseats-cluster'
