@@ -25,11 +25,5 @@ module.exports = async context => {
     });
   }
 
-  // Change the data to be only the text
-  // This prevents people from adding other properties to our database
-  context.data = {
-    text: data.text.toString()
-  };
-
   return context;
 };
