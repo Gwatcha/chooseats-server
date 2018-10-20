@@ -13,12 +13,12 @@ module.exports = function (app) {
       unique: true,
     }
   }, {
-    hooks: {
-      beforeCount(options) {
-        options.raw = true;
+      hooks: {
+        beforeCount(options) {
+          options.raw = true;
+        }
       }
-    }
-  });
+    });
 
   // Define join table for RoomUsers
   const roomUsers = sequelizeClient.define('roomUsers', {
@@ -33,6 +33,7 @@ module.exports = function (app) {
     rooms.belongsToMany(models.users, { through: roomUsers });
     rooms.hasMany(models.votes);
     rooms.hasMany(models.restaurants);
+    rooms.hasMany(models.messages);
   };
 
   return rooms;

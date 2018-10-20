@@ -9,19 +9,26 @@ module.exports = function (app) {
     text: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    type: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   }, {
-    hooks: {
-      beforeCount(options) {
-        options.raw = true;
+      hooks: {
+        beforeCount(options) {
+          options.raw = true;
+        }
       }
-    }
-  });
+    });
 
   // eslint-disable-next-line no-unused-vars
   messages.associate = function (models) {
     // Define associations here
     // See http://docs.sequelizejs.com/en/latest/docs/associations/
+
+    messages.belongsTo(models.users);
+    messages.belongsTo(models.rooms);
   };
 
   return messages;

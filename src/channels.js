@@ -64,4 +64,18 @@ module.exports = function (app) {
       app.channel(`rooms/${data.id}`)
     ];
   });
+
+  app.service('messages').publish((data) => {
+    console.log(`Publishing messages #${data.roomId} events to all users in that room`);
+    return [
+      app.channel(`rooms/${data.id}`)
+    ];
+  });
+
+  app.service('restaurants').publish((data) => {
+    console.log(`Publishing restaurant #${data.roomId} events to all users in that room`);
+    return [
+      app.channel(`rooms/${data.id}`)
+    ];
+  });
 };
