@@ -1,5 +1,10 @@
 # Vim
 *.swp
+*.swo
+
+#cscope
+cscope*
+*starscope*
 
 # Logs
 logs
