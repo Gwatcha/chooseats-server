@@ -27,20 +27,29 @@ module.exports = function (app) {
       // if(user.isAdmin) { app.channel('admins').join(connection); }
 
       // If the user has joined e.g. chat rooms
-      try {
-        const rooms = await app.service('rooms').find({ user });
-        rooms.data.forEach(room => {
-          app.channel(`rooms/${room.dataValues.id}`).join(connection);
-        });
-      } catch (error) {
-        console.log(error);
-      }
+
+
+
 
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
       // app.channel(`userIds/$(user.id}`).join(channel);
     }
   });
+
+	// Event listener for the case in which a user joins a room. The corresponding
+	// emitter passes the 'connection' var for this user.
+	// The roomjoin event recieves 
+	app.on('roomjoin', params => {
+		try {
+			const rooms = app.service('rooms').find({ user });
+			rooms.data.forEach(room => {
+				app.channel(`rooms/${room.dataValues.id}`).join(params.connection);
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	});
 
   // eslint-disable-next-line no-unused-vars
   // app.publish((data, hook) => {
@@ -74,6 +83,13 @@ module.exports = function (app) {
 
   app.service('restaurants').publish((data) => {
     console.log(`Publishing restaurant #${data.roomId} events to all users in that room`);
+    return [
+      app.channel(`rooms/${data.id}`)
+    ];
+  });
+
+  app.service('votes').publish((data) => {
+    console.log(`Publishing votes  #${data.roomId} events to all users in that room`);
     return [
       app.channel(`rooms/${data.id}`)
     ];
