@@ -21,12 +21,12 @@ module.exports = function (app) {
     facebookId: { type: Sequelize.STRING },
 
   }, {
-      hooks: {
-        beforeCount(options) {
-          options.raw = true;
-        }
+    hooks: {
+      beforeCount(options) {
+        options.raw = true;
       }
-    });
+    }
+  });
 
   // eslint-disable-next-line no-unused-vars
   users.associate = function (models) {
