@@ -1,6 +1,5 @@
 # Vim
-*.swp
-*.swo
+*.sw*
 
 #cscope
 cscope*

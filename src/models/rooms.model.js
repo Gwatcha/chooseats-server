@@ -11,6 +11,15 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false,
       unique: true,
+    },
+
+    roomName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+
+    roomDesc: {
+      type: DataTypes.STRING,
     }
   }, {
       hooks: {
