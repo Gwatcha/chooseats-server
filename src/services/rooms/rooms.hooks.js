@@ -22,7 +22,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [associateRoomAdmin],
+    create: [associateRoomAdmin, (context) => context.app.emit('roomjoin', context)],
     update: [],
     patch: [],
     remove: []

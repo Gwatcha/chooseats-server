@@ -13,7 +13,7 @@ module.exports = function (app) {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (connection) {
-      // const user = connection.user;
+      const user = connection.user;
 
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
@@ -27,9 +27,14 @@ module.exports = function (app) {
       // if(user.isAdmin) { app.channel('admins').join(connection); }
 
       // If the user has joined e.g. chat rooms
-
-
-
+      try {
+        const rooms = await app.service('rooms').find({ user });
+        rooms.data.forEach(room => {
+          app.channel(`rooms/${room.dataValues.id}`).join(connection);
+        });
+      } catch (error) {
+        console.log(error);
+      }
 
       // Easily organize users by email and userid for things like messaging
       // app.channel(`emails/${user.email}`).join(channel);
@@ -40,12 +45,17 @@ module.exports = function (app) {
   // Event listener for the case in which a user joins a room. The corresponding
   // emitter passes the 'connection' var for this user.
   // The roomjoin event recieves 
-  app.on('roomjoin', params => {
+  app.on('roomJoined', context => {
     try {
-      const rooms = app.service('rooms').find( params.connection.user );
-      rooms.data.forEach(room => {
-        app.channel(`rooms/${room.dataValues.id}`).join(params.connection);
-      });
+      app.channel(`rooms/${context.result.dataValues.id}`).join(context.params.connection);
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
+  app.on('roomCreated', context => {
+    try {
+      app.channel(`rooms/${context.result.id}`).join(context.params.connection);
     } catch (error) {
       console.log(error);
     }
@@ -70,28 +80,28 @@ module.exports = function (app) {
   app.service('rooms').publish((data) => {
     console.log(`Publishing room #${data.id} events to all users in that room`);
     return [
-      app.channel(`rooms/${data.id}`)
+      app.channel(`rooms/${data.roomId}`)
     ];
   });
 
   app.service('messages').publish((data) => {
-    console.log(`Publishing messages #${data.roomId} events to all users in that room`);
+    console.log(`Publishing messages events to all users in that room #${data.roomId}`);
     return [
-      app.channel(`rooms/${data.id}`)
+      app.channel(`rooms/${data.roomId}`)
     ];
   });
 
   app.service('restaurants').publish((data) => {
-    console.log(`Publishing restaurant #${data.roomId} events to all users in that room`);
+    console.log(`Publishing restaurant events to all users in that room #${data.roomId}`);
     return [
-      app.channel(`rooms/${data.id}`)
+      app.channel(`rooms/${data.roomId}`)
     ];
   });
 
   app.service('votes').publish((data) => {
-    console.log(`Publishing votes  #${data.roomId} events to all users in that room`);
+    console.log(`Publishing vote events to all users in that room #${data.roomId}`);
     return [
-      app.channel(`rooms/${data.id}`)
+      app.channel(`rooms/${data.roomId}`)
     ];
   });
 };

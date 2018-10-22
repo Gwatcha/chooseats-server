@@ -15,7 +15,7 @@ module.exports = async context => {
 
       // Emit an event saying this user is joining this rooms channel. A
       // listener defined in channels.js will add this user to the channel.
-      context.app.emit('roomjoin', context.params); 
+      context.app.emit('roomJoined', context);
 
     } catch (e) {
       throw new errors.BadRequest({ roomCode: context.data.roomCode });
