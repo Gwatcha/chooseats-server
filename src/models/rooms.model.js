@@ -22,12 +22,12 @@ module.exports = function (app) {
       type: DataTypes.STRING,
     }
   }, {
-      hooks: {
-        beforeCount(options) {
-          options.raw = true;
-        }
+    hooks: {
+      beforeCount(options) {
+        options.raw = true;
       }
-    });
+    }
+  });
 
   // Define join table for RoomUsers
   const roomUsers = sequelizeClient.define('roomUsers', {

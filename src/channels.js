@@ -13,7 +13,7 @@ module.exports = function (app) {
     // connection can be undefined if there is no
     // real-time connection, e.g. when logging in via REST
     if (connection) {
-      const user = connection.user;
+      // const user = connection.user;
 
       // The connection is no longer anonymous, remove it
       app.channel('anonymous').leave(connection);
@@ -37,19 +37,19 @@ module.exports = function (app) {
     }
   });
 
-	// Event listener for the case in which a user joins a room. The corresponding
-	// emitter passes the 'connection' var for this user.
-	// The roomjoin event recieves 
-	app.on('roomjoin', params => {
-		try {
-			const rooms = app.service('rooms').find({ user });
-			rooms.data.forEach(room => {
-				app.channel(`rooms/${room.dataValues.id}`).join(params.connection);
-			});
-		} catch (error) {
-			console.log(error);
-		}
-	});
+  // Event listener for the case in which a user joins a room. The corresponding
+  // emitter passes the 'connection' var for this user.
+  // The roomjoin event recieves 
+  app.on('roomjoin', params => {
+    try {
+      const rooms = app.service('rooms').find( params.connection.user );
+      rooms.data.forEach(room => {
+        app.channel(`rooms/${room.dataValues.id}`).join(params.connection);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  });
 
   // eslint-disable-next-line no-unused-vars
   // app.publish((data, hook) => {
