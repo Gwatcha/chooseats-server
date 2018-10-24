@@ -1,6 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
-const includeUser = require('./hooks/include_user');
+const include = require('./hooks/include');
 const createRoomID = require('./hooks/create_room_id');
 const associateRoomAdmin = require('./hooks/associate_room_admin');
 const joinRoom = require('./hooks/join_room');
@@ -10,8 +10,8 @@ const queryWithCurrentUser = require('./hooks/query_with_current_user');
 module.exports = {
   before: {
     all: [authenticate('jwt')],
-    find: [includeUser, queryWithCurrentUser()],
-    get: [includeUser, restrictUsers()],
+    find: [include, queryWithCurrentUser()],
+    get: [include, restrictUsers()],
     create: [createRoomID],
     update: [restrictUsers()],
     patch: [joinRoom, restrictUsers()],

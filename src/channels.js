@@ -84,11 +84,25 @@ module.exports = function (app) {
     ];
   });
 
-  app.service('messages').publish((data) => {
+  /*app.service('messages').publish((data) => {
     console.log(`Publishing messages events to all users in that room #${data.roomId}`);
     return [
       app.channel(`rooms/${data.roomId}`)
     ];
+  });*/
+
+  app.on('messageCreated', async context => {
+    const messageQuery = await context.app.service('messages').get(context.result.id);
+    context.app.service('messages').emit('newMessage', messageQuery.dataValues);
+  });
+
+  app.service('messages').publish('created', (data) => {
+    return app.channel(`rooms/${data.roomId}`);
+  });
+
+  app.service('messages').publish('newMessage', (data) => {
+    console.log('newMessage for ' + data.roomId);
+    return app.channel(`rooms/${data.roomId}`);
   });
 
   app.service('restaurants').publish((data) => {
