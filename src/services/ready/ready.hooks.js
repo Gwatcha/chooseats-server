@@ -1,11 +1,14 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 
+const checkFinish = require('./hooks/checkFinish.js');
+const validate = require('./hooks/validate.js');
+
 module.exports = {
   before: {
-    all: [ authenticate('jwt') ],
+    all: [ authenticate('jwt')],
     find: [],
     get: [],
-    create: [ ],
+    create: [validate],
     update: [],
     patch: [],
     remove: []
@@ -15,9 +18,9 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
-    update: [],
-    patch: [],
+    create: [checkFinish],
+    update: [checkFinish],
+    patch: [checkFinish],
     remove: []
   },
 
