@@ -20,8 +20,7 @@ module.exports = function (app) {
   // ready has two foreign keys, one for room and one for user
   ready.associate = function (models) {
     ready.belongsTo(models.rooms, {foreignKey: { allowNull: false }, onDelete: 'CASCADE'});
-    // users may be null since we set it ourselves anyways
-    ready.belongsTo(models.users);
+    ready.belongsTo(models.users, {foreignKey: { allowNull: false }, onDelete: 'CASCADE'});
   };
 
   return ready;
