@@ -43,6 +43,7 @@ module.exports = function (app) {
     rooms.hasMany(models.votes);
     rooms.hasMany(models.restaurants);
     rooms.hasMany(models.messages);
+    rooms.hasMany(models.ready);
   };
 
   return rooms;

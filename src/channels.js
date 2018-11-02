@@ -104,4 +104,11 @@ module.exports = function (app) {
       app.channel(`rooms/${data.roomId}`)
     ];
   });
+
+  app.service('ready').publish((data) => {
+    console.log(`Publishing ready events to all users in that room #${data.roomId}`);
+    return [
+      app.channel(`rooms/${data.roomId}`)
+    ];
+  });
 };
