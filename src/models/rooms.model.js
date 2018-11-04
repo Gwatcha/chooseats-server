@@ -5,6 +5,7 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
+  const RestaurantsModel = app.service('restaurants').Model; 
 
   const rooms = sequelizeClient.define('rooms', {
     roomCode: {
@@ -20,6 +21,25 @@ module.exports = function (app) {
 
     roomDesc: {
       type: DataTypes.STRING,
+    },
+
+    // For now state can be either "voting", or "ready". The state of a room is
+    // set to ready when all users are ready, or when the admin says so
+    state: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
+    // this field is set by the server after the last user ready or admin start
+    // it is a foreign key for a restaurant associated with this room
+    selectedRestaurant: {
+      type: DataTypes.INTEGER,
+      references: {
+        // This is a reference to another model
+        model: RestaurantsModel,
+        // This is the column name of the referenced model
+        key: 'id'
+      }
     }
   }, {
     hooks: {
