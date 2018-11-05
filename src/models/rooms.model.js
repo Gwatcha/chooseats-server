@@ -38,7 +38,7 @@ module.exports = function (app) {
     // this field is set by the server after the last user ready 
     // it is a foreign key for a restaurant associated with this room
     selectedRestaurant: {
-      type: DataTypes.INTEGER,
+      type: DataTypes.STRING,
     }
   }, {
     hooks: {
