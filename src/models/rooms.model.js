@@ -34,12 +34,6 @@ module.exports = function (app) {
     // it is a foreign key for a restaurant associated with this room
     selectedRestaurant: {
       type: DataTypes.INTEGER,
-      references: {
-        // This is a reference to another model
-        model: RestaurantsModel,
-        // This is the column name of the referenced model
-        key: 'id'
-      }
     }
   }, {
     hooks: {
