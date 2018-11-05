@@ -5,7 +5,6 @@ const DataTypes = Sequelize.DataTypes;
 
 module.exports = function (app) {
   const sequelizeClient = app.get('sequelizeClient');
-  const RestaurantsModel = app.service('restaurants').Model; 
 
   const rooms = sequelizeClient.define('rooms', {
     roomCode: {
