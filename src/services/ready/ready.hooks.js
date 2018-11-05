@@ -2,6 +2,7 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 
 const checkFinish = require('./hooks/checkFinish.js');
 const validate = require('./hooks/validate.js');
+const finishVotingState = require('../../hooks/finishVotingState.js');
 
 module.exports = {
   before: {
@@ -9,18 +10,18 @@ module.exports = {
     find: [],
     get: [],
     create: [validate],
-    update: [],
-    patch: [],
-    remove: []
+    update: [validate],
+    patch: [validate],
+    remove: [validate]
   },
 
   after: {
     all: [],
     find: [],
     get: [],
-    create: [checkFinish],
-    update: [checkFinish],
-    patch: [checkFinish],
+    create: [checkFinish, finishVotingState],
+    update: [],
+    patch: [],
     remove: []
   },
 
