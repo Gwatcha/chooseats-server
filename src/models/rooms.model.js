@@ -22,14 +22,20 @@ module.exports = function (app) {
       type: DataTypes.STRING,
     },
 
-    // For now state can be either "voting", or "ready". The state of a room is
-    // set to ready when all users are ready, or when the admin says so
+    // style of voting for this room, either, "max", "random" for now
+    roomType: {
+      type: DataTypes.STRING,
+      defaultValue: 'max'
+    },
+
+    // For now state can be either "voting", or "done". The state of a room is
+    // set to "done" when all users are ready
     state: {
       type: DataTypes.STRING,
       allowNull: false
     },
 
-    // this field is set by the server after the last user ready or admin start
+    // this field is set by the server after the last user ready 
     // it is a foreign key for a restaurant associated with this room
     selectedRestaurant: {
       type: DataTypes.INTEGER,
