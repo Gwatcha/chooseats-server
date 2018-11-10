@@ -16,17 +16,19 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false
     },
-
+    username: {
+      type: DataTypes.STRING
+    },
     googleId: { type: Sequelize.STRING },
     facebookId: { type: Sequelize.STRING },
 
   }, {
-    hooks: {
-      beforeCount(options) {
-        options.raw = true;
+      hooks: {
+        beforeCount(options) {
+          options.raw = true;
+        }
       }
-    }
-  });
+    });
 
   // eslint-disable-next-line no-unused-vars
   users.associate = function (models) {
