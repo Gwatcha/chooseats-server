@@ -16,7 +16,9 @@ module.exports = function (app) {
       type: DataTypes.STRING,
       allowNull: false
     },
-
+    username: {
+      type: DataTypes.STRING
+    },
     googleId: { type: Sequelize.STRING },
     facebookId: { type: Sequelize.STRING },
 

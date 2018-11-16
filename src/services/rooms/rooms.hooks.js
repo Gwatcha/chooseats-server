@@ -6,6 +6,7 @@ const associateRoomAdmin = require('./hooks/associate_room_admin');
 const joinRoom = require('./hooks/join_room');
 const restrictUsers = require('./hooks/restrict_to_room_users');
 const queryWithCurrentUser = require('./hooks/query_with_current_user');
+const isAdmin = require('./hooks/is_admin');
 
 module.exports = {
   before: {
@@ -20,7 +21,7 @@ module.exports = {
 
   after: {
     all: [],
-    find: [],
+    find: [isAdmin()],
     get: [],
     create: [associateRoomAdmin, (context) => context.app.emit('roomjoin', context)],
     update: [],

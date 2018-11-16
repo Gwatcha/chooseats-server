@@ -12,15 +12,20 @@ module.exports = function (app) {
       allowNull: false,
       unique: true,
     },
-
     roomName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     roomDesc: {
       type: DataTypes.STRING,
+    },
+    roomType: {
+      type: DataTypes.STRING,
+    },
+    roomMax: {
+      type: DataTypes.INTEGER,
     }
+
   }, {
     hooks: {
       beforeCount(options) {

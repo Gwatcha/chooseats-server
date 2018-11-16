@@ -3,7 +3,7 @@ module.exports = context => {
 
   context.params.sequelize = {
     raw: false,
-    include: [{ model: UserModel, through: { attributes: ['admin'], as: 'role' }, attributes: ['id', 'email'] }]// { model: MessageModel, include: [{ model: UserModel, attributes: ['id', 'email'] }] }]
+    include: [{ model: UserModel, through: { attributes: ['admin'], as: 'role' }, attributes: ['id', 'email'], required: true }]// { model: MessageModel, include: [{ model: UserModel, attributes: ['id', 'email'] }] }]
   };
   return context;
 };
