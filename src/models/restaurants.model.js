@@ -21,6 +21,7 @@ module.exports = function (app) {
   // eslint-disable-next-line no-unused-vars
   restaurants.associate = function (models) {
     restaurants.belongsTo(models.rooms);
+    restaurants.belongsTo(models.users);
     restaurants.hasMany(models.votes);
   };
 
