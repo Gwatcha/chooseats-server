@@ -3,7 +3,7 @@
  * sets the selected restaurant for that room according to the voting method. 
  */
 module.exports = async context => {
-  console.log("Finish voting state triggered!");
+  console.log('Finish voting state triggered!');
   const restaurantsModel =  context.app.service('restaurants').Model; 
   const votesModel =  context.app.service('votes').Model; 
   const roomsModel = context.app.service('rooms').Model; 

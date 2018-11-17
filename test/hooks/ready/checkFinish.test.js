@@ -1,4 +1,4 @@
-const assert = require('assert');
+/* const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
 const memory = require('feathers-memory');
 
@@ -20,7 +20,7 @@ describe('\'populate-user\' hook', () => {
 
     // Register needed services
     app.use('/users', memory(options));
-    app.use('/ready', messagesmemory(options));
+    app.use('/ready', memory(options));
     app.use('/rooms', memory(options));
 
     // Add the hook to the dummy service
@@ -46,4 +46,4 @@ describe('\'populate-user\' hook', () => {
     // Make sure that user got added to the returned message
     assert.deepEqual(message.user, user);
   });
-});
+}); */
