@@ -3,17 +3,16 @@
  * sets the selected restaurant for that room according to the voting method. 
  */
 module.exports = async context => {
+  console.log("Finish voting state triggered!");
   const restaurantsModel =  context.app.service('restaurants').Model; 
   const votesModel =  context.app.service('votes').Model; 
   const roomsModel = context.app.service('rooms').Model; 
 
-  const roomType = room.roomType;
   const room = await roomsModel.findOne({
     where: { id : context.data.roomId }
   });
 
-  // the selected restaurant
-  var chooseat = null;
+  const roomType = room.roomType;
 
   // get the restaurants (with votes) for this room
   const restaurants = await restaurantsModel.findAll({
@@ -21,9 +20,10 @@ module.exports = async context => {
     include: { model : votesModel }
   });
 
-
   var i ;
   var count;
+  // the selected restaurant
+  var chooseat = null;
 
   // in the random style, we randomly select but we weigh the selection based on
   // the room, kind of like a wheel of fortune
@@ -95,7 +95,7 @@ module.exports = async context => {
 
   // patch the room and emit an event to notify users in the rooms channel
   context.app.service('rooms').patch( context.data.roomId,
-    { state : 'done', selectedRestaurant : chooseat.google_places_id }, 
+    { roomState : 'done', selectedRestaurant : chooseat.google_places_id }, 
     context.params
   );
 

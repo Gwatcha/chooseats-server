@@ -10,11 +10,13 @@ module.exports = async context => {
   const readyModel = context.app.service('ready').Model;
   const userModel = context.app.service('users').Model;
 
-  const readyCount = await readyModel.count({
+  var readyCount = await readyModel.count({
     where: { roomId : context.data.roomId }
   });
 
-  const userCount = await roomsModel.count({
+  console.log("Ready count is", readyCount);
+
+  var userCount = await roomsModel.count({
     where: { id : context.data.roomId },
     include: { 
       model: userModel,
@@ -22,6 +24,8 @@ module.exports = async context => {
       group: ['userId']
     }
   });
+
+  console.log("User count is", userCount);
 
   // room is done in this case, so we don't skip later hooks, thus
   // finishVotingState.js runs

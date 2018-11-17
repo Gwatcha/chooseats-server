@@ -2,15 +2,14 @@ const { authenticate } = require('@feathersjs/authentication').hooks;
 const checkFinish = require('./hooks/checkFinish.js');
 const validate = require('./hooks/validate.js');
 const finishVotingState = require('../../hooks/finishVotingState.js');
-const queryWithCurrentUser = require('./hooks/query_with_current_user.js');
 const checkUserInRoom = require('./hooks/checkUserInRoom.js');
 
 module.exports = {
   before: {
-    all: [ authenticate('jwt'), queryWithCurrentUser, checkUserInRoom, validate],
+    all: [ authenticate('jwt'), validate ],
     find: [],
     get: [],
-    create: [],
+    create: [checkUserInRoom],
     update: [],
     patch: [],
     remove: []

@@ -6,8 +6,11 @@ const isEmptyObject = require('is-empty-object');
  * meaning the user is currently in the room .
  */
 module.exports = async context => {
-  const { data } = context;
+  const data = context.data;
   const errors = {};
+
+  console.log('userId is ', data.userId);
+  console.log('roomId is ', data.roomId);
 
   if (!data.userId) {
     errors.userId = 'userId is required';
@@ -26,7 +29,7 @@ module.exports = async context => {
 
   // Check this room exists and the user is a part of it, if so, throw
   // BadRequest
-  context.app.service('rooms').Model.findOne({
+  await context.app.service('rooms').Model.findOne({
     where: { id : data.roomId },
     include: { 
       model: context.app.service('users').Model,
@@ -41,6 +44,8 @@ module.exports = async context => {
         errors: errors
       });
     }
+  }).catch( (error) => {
+    throw error;
   });
 
   return context;

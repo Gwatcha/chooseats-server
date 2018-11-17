@@ -10,6 +10,11 @@ module.exports = async context => {
     throw new MethodNotAllowed({});
   }
 
+  // dont do anything for removes
+  if (context.method == 'remove') {
+    return context;
+  }
+
   if (!data.userId) {
     errors.userId = 'userId is required';
   } 
@@ -27,15 +32,18 @@ module.exports = async context => {
 
   // Check if user is trying to create two readys, 
   if (context.method == 'create') {
-    context.app.service('ready').Model.count({
-      where: { roomId : data.roomId,userId : data.userId } 
-    }).then( (count) => { 
+    await context.app.service('ready').Model.count({
+      where: { roomId : data.roomId, userId : data.userId } 
+    }).then((count) => { 
       if (count > 0) {
         errors.roomId = 'user has already posted a ready for this room';
+        console.log('user tried posting two readys');
         throw new BadRequest({
           errors: errors
         });
       }
+    }).catch( (error) => {
+      throw error;
     });
   }
 

@@ -23,14 +23,15 @@ module.exports = function (app) {
     },
 
     // style of voting for this room, either, "max", "random" for now
+    // planning to add 
     roomType: {
       type: DataTypes.STRING,
       defaultValue: 'max'
     },
 
-    // For now state can be either "voting", or "done". The state of a room is
+    // For now state can be either, "starting", "voting", or "done". The state of a room is
     // set to "done" when all users are ready
-    state: {
+    roomState: {
       type: DataTypes.STRING,
       allowNull: false
     },
