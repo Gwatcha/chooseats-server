@@ -4,23 +4,25 @@
  */
 module.exports = async context => {
   console.log('Finish voting state triggered!');
+
   const restaurantsModel =  context.app.service('restaurants').Model; 
   const votesModel =  context.app.service('votes').Model; 
   const roomsModel = context.app.service('rooms').Model; 
 
+  // get room and room type
   const room = await roomsModel.findOne({
     where: { id : context.data.roomId }
   });
 
   const roomType = room.roomType;
 
-  // get the restaurants (with votes) for this room
+  // get the restaurants (with votes) for this room 
   const restaurants = await restaurantsModel.findAll({
     where: { roomId : context.data.roomId },
     include: { model : votesModel }
   });
 
-  var i ;
+  var i;
   var count;
   // the selected restaurant
   var chooseat = null;
@@ -59,6 +61,11 @@ module.exports = async context => {
         break;
       }
     }
+  }
+
+  // true random dosen't care for votes
+  else if ( roomType === 'truerandom' ) {
+    chooseat = restaurants[getRandomInt(restaurants.length)];
   }
 
   // default is max style
