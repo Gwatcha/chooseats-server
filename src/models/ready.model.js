@@ -11,9 +11,7 @@ module.exports = function (app) {
       onDelete: 'CASCADE',
       unique: 'compositeIndex'
     });
-  };
 
-  ready.associate = function (models) {
     ready.belongsTo(models.users, {
       foreignKey: { allowNull: false },
       onDelete: 'CASCADE',
