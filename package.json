@@ -26,10 +26,10 @@
   "scripts": {
     "test": "yarn run eslint && yarn run mocha",
     "eslint": "eslint src/. test/. --config .eslintrc.json ",
-    "coverage": "nyc mocha test/ --recursive --exit ",
+    "coverage": "nyc mocha test/. --recursive --exit ",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "NODE_ENV=test mocha test/ --recursive --exit"
+    "mocha": " mocha test/. --recursive --exit"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.10",
