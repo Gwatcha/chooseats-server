@@ -6,8 +6,7 @@
     "default": 10,
     "max": 50
   },
-
-  "postgres": "postgres://shdyyhld:sKbo2j0jWA6oHUYfEyhirfTnYjdF9S9r@elmer.db.elephantsql.com:5432/shdyyhld",
+  "postgres": "postgres://xyaxxdag:k85K5MTaJX_vnfLFy8uVV0BTdxtFaOpM@stampy.db.elephantsql.com:5432/xyaxxdag",
   "authentication": {
     "secret": "f3fd25deaa3575f0b2d475fcb388fa5802e864157c784931d9f456595c795db6c103330223f56586e55478ae2222aa7d9b63f6f49dda6c1e4964170e631e961b7a15675e63e5207fd730aa21c938636f487935445208eb0e666e306009247039b9096edb0859d12424ebaeec6a7f29d238d40d5b5ef00d3aa03e705238a1d10f166d2f686ecc7ee7435195845515feb2676edd0d80168bc32fe740be0854b688d7295f6b6e2268e90e3ae2061cae85fce8c527e4856952d87aaaa846d2c9412161a6572bc8839553248299a82a916a6761174f4020b4710b1eaa7734b4d7e2531d845d7bdc756bd7a5ebf112b84c4a19b871623e9f3c565d530fb1cb2f8d29a2",
     "strategies": [
@@ -30,7 +29,7 @@
       "passwordField": "password"
     },
     "google": {
-      "clientID": "your google client id ",
+      "clientID": "your google client id",
       "clientSecret": "your google client secret",
       "successRedirect": "/",
       "scope": [
