@@ -17,16 +17,16 @@ module.exports = async context => {
 
       // this part checks if this user has already joined, and rejects if so,
       // only admins can patch rooms
-      var userCount = 0;
       room.users.forEach( (user) => {
         if ( user.id == context.params.user.id ) {
           throw new errors.Forbidden('This user has already joined this room.');
         }
-        userCount++;
       });
 
-      if ( room.roomMax <= userCount ) {
-        throw new errors.Forbidden('The room is at maximum capacity and can not be joined!');
+      if (room.users.length >= room.roomMax) {
+        throw new errors.BadRequest({
+          error: 'Room Full'
+        });
       }
 
       // If we are hear, it means this user is not in the room and the room is

@@ -1,13 +1,14 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const checkDouble = require('./hooks/checkDouble.js');
 const validate = require('./hooks/validate.js');
+const hooks = require('feathers-authentication-hooks');
 
 module.exports = {
   before: {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [validate, checkDouble],
+    create: [hooks.associateCurrentUser({ idField: 'id'}), validate, checkDouble],
     update: [],
     patch: [],
     remove: []

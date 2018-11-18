@@ -1,4 +1,5 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const hooks = require('feathers-authentication-hooks');
 const {
   hashPassword, protect
 } = require('@feathersjs/authentication-local').hooks;
@@ -8,12 +9,12 @@ const validate = require('./users.errors');
 module.exports = {
   before: {
     all: [],
-    find: [authenticate('jwt')],
-    get: [authenticate('jwt')],
+    find: [authenticate('jwt'), hooks.queryWithCurrentUser({ idField: 'id', as: 'id' })],
+    get: [authenticate('jwt'), hooks.queryWithCurrentUser({ idField: 'id', as: 'id' })],
     create: [validate, hashPassword()],
-    update: [hashPassword(), authenticate('jwt')],
-    patch: [hashPassword(), authenticate('jwt')],
-    remove: [authenticate('jwt')]
+    update: [hashPassword(), authenticate('jwt'), hooks.restrictToOwner({ idField: 'id', ownerField: 'id' })],
+    patch: [hashPassword(), authenticate('jwt'), hooks.restrictToOwner({ idField: 'id', ownerField: 'id' })],
+    remove: [authenticate('jwt'), hooks.restrictToOwner({ idField: 'id', ownerField: 'id' })]
   },
 
   after: {

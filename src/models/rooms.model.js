@@ -12,12 +12,10 @@ module.exports = function (app) {
       allowNull: false,
       unique: true,
     },
-
     roomName: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-
     roomDesc: {
       type: DataTypes.STRING,
     },
@@ -46,6 +44,7 @@ module.exports = function (app) {
     selectedRestaurant: {
       type: DataTypes.STRING,
     }
+
   }, {
     hooks: {
       beforeCount(options) {

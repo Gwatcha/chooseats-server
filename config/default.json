@@ -30,7 +30,7 @@
       "passwordField": "password"
     },
     "google": {
-      "clientID": "your google client id",
+      "clientID": "your google client id ",
       "clientSecret": "your google client secret",
       "successRedirect": "/",
       "scope": [
