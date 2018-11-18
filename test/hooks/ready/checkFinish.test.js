@@ -1,10 +1,13 @@
-/* const assert = require('assert');
+const assert = require('assert');
 const feathers = require('@feathersjs/feathers');
 const memory = require('feathers-memory');
 
 const checkFinish = require('../../../src/services/ready/hooks/checkFinish.js');
 
-describe('\'populate-user\' hook', () => {
+var SequelizeMock = require('sequelize-mock');
+var dbMock = new SequelizeMock();
+
+describe('\'checkFinish\' hook', () => {
   let app, user;
 
   beforeEach(async () => {
@@ -19,9 +22,9 @@ describe('\'populate-user\' hook', () => {
     app = feathers();
 
     // Register needed services
-    app.use('/users', memory(options));
-    app.use('/ready', memory(options));
     app.use('/rooms', memory(options));
+    app.use('/ready', memory(options));
+    app.use('/users', memory(options));
 
     // Add the hook to the dummy service
     app.service('ready').hooks({
@@ -46,4 +49,4 @@ describe('\'populate-user\' hook', () => {
     // Make sure that user got added to the returned message
     assert.deepEqual(message.user, user);
   });
-}); */
+});
