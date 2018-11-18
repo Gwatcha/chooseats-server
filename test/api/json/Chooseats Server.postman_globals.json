@@ -1,0 +1,90 @@
+{
+	"id": "43fdce9d-9682-4d90-82be-da6d9d187cd5",
+	"values": [
+		{
+			"key": "SERVER",
+			"value": "http://localhost:3030",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_NAME",
+			"value": "TestRoom1",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_DESC",
+			"value": "This is test room 1",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_TYPE",
+			"value": "random",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_ID",
+			"value": 3,
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_CODE",
+			"value": "O5464K",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_STATE",
+			"value": "starting",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "MESSAGE_TYPE",
+			"value": "chat",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		},
+		{
+			"key": "ROOM_MAX",
+			"value": "10",
+			"description": {
+				"content": "",
+				"type": "text/plain"
+			},
+			"enabled": true
+		}
+	],
+	"name": "Chooseats Server Globals",
+	"_postman_variable_scope": "globals",
+	"_postman_exported_at": "2018-11-18T20:17:26.808Z",
+	"_postman_exported_using": "Postman/6.5.2"
+}
