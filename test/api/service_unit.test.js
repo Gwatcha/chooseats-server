@@ -9,8 +9,8 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 
 // Start up the server
-const app = require('../../src/app.js');
-const port = app.get('port');
+// const app = require('../../src/app.js');
+// const port = app.get('port');
 // const server = app.listen(port);
 
 // Grab current services
