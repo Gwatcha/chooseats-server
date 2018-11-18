@@ -13,11 +13,11 @@ describe('\'authentication\' service', () => {
   //     password: 'secretpassword'
   //   });
 
-    // broken
-    // const result = await app.authenticate({ email: user.email, password: user.password, strategy: 'local' });
+  // broken
+  // const result = await app.authenticate({ email: user.email, password: user.password, strategy: 'local' });
 
-    // assert(result.accessToken);
+  // assert(result.accessToken);
 
-    // await app.service('users').remove(user.id, { user });
+  // await app.service('users').remove(user.id, { user });
   // });
 });
