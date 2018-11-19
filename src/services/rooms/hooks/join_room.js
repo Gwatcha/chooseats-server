@@ -19,7 +19,7 @@ module.exports = async context => {
       // only admins can patch rooms
       room.users.forEach( (user) => {
         if ( user.id == context.params.user.id ) {
-          throw new errors.Forbidden('This user has already joined this room.');
+          throw new errors.BadRequest('This user has already joined this room.');
         }
       });
 

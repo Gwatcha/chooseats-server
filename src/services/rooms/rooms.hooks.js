@@ -7,6 +7,8 @@ const joinRoom = require('./hooks/join_room');
 const restrictUsers = require('./hooks/restrict_to_room_users');
 const queryWithCurrentUser = require('./hooks/query_with_current_user');
 const isAdmin = require('./hooks/is_admin');
+const checkFinish = require('../../hooks/checkFinish.js');
+const finishVotingState = require('../../hooks/finishVotingState.js');
 
 module.exports = {
   before: {
@@ -25,7 +27,7 @@ module.exports = {
     get: [],
     create: [associateRoomAdmin, (context) => context.app.emit('roomjoin', context)],
     update: [],
-    patch: [],
+    patch: [checkFinish, finishVotingState],
     remove: []
   },
 

@@ -1,9 +1,8 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
-const checkFinish = require('./hooks/checkFinish.js');
+const checkFinish = require('../../hooks/checkFinish.js');
 const validate = require('./hooks/validate.js');
 const finishVotingState = require('../../hooks/finishVotingState.js');
 const checkUserInRoom = require('./hooks/checkUserInRoom.js');
-
 const setUserId = require('../../hooks/set_userId.js');
 
 module.exports = {

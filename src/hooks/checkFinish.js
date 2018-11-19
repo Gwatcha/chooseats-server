@@ -10,6 +10,25 @@ module.exports = async context => {
   const readyModel = context.app.service('ready').Model;
   const userModel = context.app.service('users').Model;
 
+  // If this roomType is true random and the room has been patched with
+  // 'voting' we are done immediately
+  console.log(context.data.roomState);
+  var done = 0;
+  await roomsModel.findOne({
+    where: { id : context.id }
+  }).then((room) => { 
+    if ( room.roomType === 'truerandom' && context.data.roomState === 'voting' ) {
+      done = 1;
+    }
+  }).catch( (error) => {
+    throw error;
+  });
+
+  if (done) {
+    // move onto finishVotingState hook
+    return context;
+  }
+
   var readyCount = await readyModel.count({
     where: { roomId : context.data.roomId }
   });

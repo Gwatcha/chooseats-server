@@ -10,15 +10,29 @@ module.exports = async context => {
   const roomsModel = context.app.service('rooms').Model; 
 
   // get room and room type
-  const room = await roomsModel.findOne({
-    where: { id : context.data.roomId }
-  });
+  var room;
+  if ( context.path == 'rooms' ) {
+    room = await roomsModel.findOne({
+      where: { id : context.id }
+    });
+    // avoid recursion
+    context.data.roomState = 'done';
+  }
+  else if (context.path == 'ready' ) {
+    room = await roomsModel.findOne({
+      where: { id : context.data.roomId }
+    });
+  }
+  else {
+    console.log('Error! finishVotingState hook should only be used on rooms and ready service');
+  }
 
+  const roomId = room.id;
   const roomType = room.roomType;
 
   // get the restaurants (with votes) for this room 
   const restaurants = await restaurantsModel.findAll({
-    where: { roomId : context.data.roomId },
+    where: { roomId : roomId },
     include: { model : votesModel }
   });
 
@@ -27,9 +41,12 @@ module.exports = async context => {
   // the selected restaurant
   var chooseat = null;
 
+  if ( restaurants.length == 0 ) {
+    chooseat = { google_places_id : 'ChIJp4Q8cDwW000R6CsGLxl4R4A'};
+  }
   // in the random style, we randomly select but we weigh the selection based on
   // the room, kind of like a wheel of fortune
-  if (roomType === 'random') {
+  else if (roomType === 'random') {
     // the number of votes for the resaurant at i
     var totalVotes = 0;
     var votes = [];
@@ -39,7 +56,7 @@ module.exports = async context => {
         where: { restaurantId : restaurants[i].id },
         include: {
           model : restaurantsModel,
-          where : { roomId : context.data.roomId }
+          where : { roomId : roomId }
         }
       });
 
@@ -82,7 +99,7 @@ module.exports = async context => {
         where: { restaurantId : restaurants[i].id },
         include: {
           model : restaurantsModel,
-          where : { roomId : context.data.roomId }
+          where : { roomId : roomId }
         }
       });
 
@@ -102,8 +119,8 @@ module.exports = async context => {
   }
 
   // patch the room and emit an event to notify users in the rooms channel
-  context.app.service('rooms').patch( context.data.roomId,
-    { roomState : 'done', selectedRestaurant : chooseat.google_places_id }, 
+  context.app.service('rooms').patch( roomId,
+    { roomState : 'done', roomId : roomId,  selectedRestaurant : chooseat.google_places_id }, 
     context.params
   );
 

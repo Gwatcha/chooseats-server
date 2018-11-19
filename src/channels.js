@@ -84,6 +84,17 @@ module.exports = function (app) {
     ];
   });
 
+  // custom room events
+  // app.on('roomVoting', async context => {
+  //   const room = await context.app.service('rooms').get(context.result.id);
+  //   context.app.service('rooms').emit('roomVoting', room.dataValues);
+  // });
+
+  // app.on('roomDone', async context => {
+  //   const room = await context.app.service('rooms').get(context.result.id);
+  //   context.app.service('rooms').emit('roomDone', room.dataValues);
+  // });
+
   /*app.service('messages').publish((data) => {
     console.log(`Publishing messages events to all users in that room #${data.roomId}`);
     return [
