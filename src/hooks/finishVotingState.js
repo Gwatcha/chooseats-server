@@ -41,12 +41,9 @@ module.exports = async context => {
   // the selected restaurant
   var chooseat = null;
 
-  if ( restaurants.length == 0 ) {
-    chooseat = { google_places_id : 'ChIJp4Q8cDwW000R6CsGLxl4R4A'};
-  }
   // in the random style, we randomly select but we weigh the selection based on
   // the room, kind of like a wheel of fortune
-  else if (roomType === 'random') {
+  if (roomType === 'random') {
     // the number of votes for the resaurant at i
     var totalVotes = 0;
     var votes = [];
