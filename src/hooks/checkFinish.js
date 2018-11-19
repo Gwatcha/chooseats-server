@@ -12,22 +12,24 @@ module.exports = async context => {
 
   // If this roomType is true random and the room has been patched with
   // 'voting' we are done immediately
-  console.log(context.data.roomState);
-  var done = 0;
-  await roomsModel.findOne({
-    where: { id : context.id }
-  }).then((room) => { 
-    if ( room.roomType === 'truerandom' && context.data.roomState === 'voting' ) {
-      done = 1;
-    }
-  }).catch( (error) => {
-    throw error;
-  });
+  if (context.data.roomState != undefined ) {
+    console.log('User patched with ',  context.data.roomState);
+    var done = 0;
+    await roomsModel.findOne({
+      where: { id : context.result.id }
+    }).then((room) => { 
+      if ( room.roomType === 'truerandom' && context.data.roomState === 'voting' ) {
+        done = 1;
+      }
+    }).catch( (error) => {
+      throw error;
+    });
 
-  if (done) {
-    // move onto finishVotingState hook
-    console('forcing room to end.');
-    return context;
+    if (done) {
+      // move onto finishVotingState hook
+      console('forcing room finish.');
+      return context;
+    }
   }
 
   if ( context.path !== 'rooms' ) {
