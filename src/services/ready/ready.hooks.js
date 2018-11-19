@@ -4,15 +4,17 @@ const validate = require('./hooks/validate.js');
 const finishVotingState = require('../../hooks/finishVotingState.js');
 const checkUserInRoom = require('./hooks/checkUserInRoom.js');
 
+const setUserId = require('../../hooks/set_userId.js');
+
 module.exports = {
   before: {
     all: [ authenticate('jwt'), validate ],
     find: [],
     get: [],
-    create: [checkUserInRoom],
+    create: [setUserId, checkUserInRoom],
     update: [],
     patch: [],
-    remove: []
+    remove: [setUserId]
   },
 
   after: {

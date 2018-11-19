@@ -3,15 +3,17 @@ const checkDouble = require('./hooks/checkDouble.js');
 //const validate = require('./hooks/validate.js');
 const hooks = require('feathers-authentication-hooks');
 
+const setUserId = require('../../hooks/set_userId.js');
+
 module.exports = {
   before: {
     all: [authenticate('jwt')],
     find: [],
     get: [],
-    create: [hooks.associateCurrentUser({ idField: 'id' }), checkDouble],
+    create: [setUserId, hooks.associateCurrentUser({ idField: 'id' }), checkDouble],
     update: [],
     patch: [],
-    remove: []
+    remove: [setUserId]
   },
 
   after: {

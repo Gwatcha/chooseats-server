@@ -15,10 +15,6 @@ module.exports = async context => {
     return context;
   }
 
-  if (!data.userId) {
-    errors.userId = 'userId is required';
-  } 
-
   if (!data.roomId) {
     errors.roomId = 'roomId is required';
   }
@@ -33,7 +29,7 @@ module.exports = async context => {
   // Check if user is trying to create two readys, 
   if (context.method == 'create') {
     await context.app.service('ready').Model.count({
-      where: { roomId : data.roomId, userId : data.userId } 
+      where: { roomId : data.roomId, userId : context.params.user.id } 
     }).then((count) => { 
       if (count > 0) {
         errors.roomId = 'user has already posted a ready for this room';
