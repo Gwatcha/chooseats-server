@@ -26,30 +26,33 @@ module.exports = async context => {
 
   if (done) {
     // move onto finishVotingState hook
+    console('forcing room to end.');
     return context;
   }
 
-  var readyCount = await readyModel.count({
-    where: { roomId : context.data.roomId }
-  });
+  if ( context.path !== 'rooms' ) {
+    var readyCount = await readyModel.count({
+      where: { roomId : context.data.roomId }
+    });
 
-  console.log('Ready count is', readyCount);
+    console.log('Ready count is', readyCount);
 
-  var userCount = await roomsModel.count({
-    where: { id : context.data.roomId },
-    include: { 
-      model: userModel,
-      // group my userId, so we count the number of users in this room
-      group: ['userId']
+    var userCount = await roomsModel.count({
+      where: { id : context.data.roomId },
+      include: { 
+        model: userModel,
+        // group by userId, so we count the number of users in this room
+        group: ['userId']
+      }
+    });
+
+    console.log('User count is', userCount);
+
+    // room is done in this case, so we don't skip later hooks, thus
+    // finishVotingState.js runs
+    if ((userCount === readyCount) && (userCount !== null)) {
+      return context;
     }
-  });
-
-  console.log('User count is', userCount);
-
-  // room is done in this case, so we don't skip later hooks, thus
-  // finishVotingState.js runs
-  if ((userCount === readyCount) && (userCount !== null)) {
-    return context;
   }
 
   return feathers.SKIP;
