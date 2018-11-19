@@ -80,7 +80,7 @@ module.exports = function (app) {
   app.service('rooms').publish((data) => {
     console.log(`Publishing room #${data.id} events to all users in that room`);
     return [
-      app.channel(`rooms/${data.roomId}`)
+      app.channel(`rooms/${data.id}`)
     ];
   });
 
