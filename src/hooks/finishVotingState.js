@@ -68,7 +68,8 @@ module.exports = async context => {
     chooseat = restaurants[getRandomInt(restaurants.length)];
   }
 
-  // default is max style
+  // default is single, or ranked style, which are the same from the servers
+  // perspective
   else {
     var maxcount = 0;
     var maxi = [];
