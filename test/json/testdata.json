@@ -3,6 +3,7 @@
     {
       "name": "user 1",
       "username": "user1",
+      "password": "password",
       "email": "user1@testing.com",
       "userId": 0, 
       "token": "eyjhbgcioijiuzi1niisinr5cci6imfjy2vzcyj9.eyj1c2vyswqiojysimvtywlsijoidxnlcjraaw50zwdyyxrpb250zxn0lmnvbsisimlhdci6mtu0mjmxodg3nswizxhwijoxntqynda1mjc1lcjhdwqioijodhrwczovl3lvdxjkb21haw4uy29tiiwiaxnzijoiq2hvb3nlrwf0cyisinn1yii6imfub255bw91cyisimp0asi6ijmyywi0nwy2ltbhzgetndbjzi04mthilwu0ody4ownmowy3yyj9.nefr7zzpgbgkwfx536dmsy8lkgqr5jndyrmujs0qkoa",
@@ -20,6 +21,7 @@
     {
       "name": "user 2",
       "username": "user2",
+      "password": "password",
       "email": "user2@testing.com",
       "userId": 0, 
       "token": "eyjhbgcioijiuzi1niisinr5cci6imfjy2vzcyj9.eyj1c2vyswqiojysimvtywlsijoidxnlcjraaw50zwdyyxrpb250zxn0lmnvbsisimlhdci6mtu0mjmxodg3nswizxhwijoxntqynda1mjc1lcjhdwqioijodhrwczovl3lvdxjkb21haw4uy29tiiwiaxnzijoiq2hvb3nlrwf0cyisinn1yii6imfub255bw91cyisimp0asi6ijmyywi0nwy2ltbhzgetndbjzi04mthilwu0ody4ownmowy3yyj9.nefr7zzpgbgkwfx536dmsy8lkgqr5jndyrmujs0qkoa",
@@ -37,6 +39,7 @@
     {
       "name": "user 3",
       "username": "user3",
+      "password": "password",
       "email": "user3@testing.com",
       "userId": 0, 
       "token": "eyjhbgcioijiuzi1niisinr5cci6imfjy2vzcyj9.eyj1c2vyswqiojysimvtywlsijoidxnlcjraaw50zwdyyxrpb250zxn0lmnvbsisimlhdci6mtu0mjmxodg3nswizxhwijoxntqynda1mjc1lcjhdwqioijodhrwczovl3lvdxjkb21haw4uy29tiiwiaxnzijoiq2hvb3nlrwf0cyisinn1yii6imfub255bw91cyisimp0asi6ijmyywi0nwy2ltbhzgetndbjzi04mthilwu0ody4ownmowy3yyj9.nefr7zzpgbgkwfx536dmsy8lkgqr5jndyrmujs0qkoa",
@@ -54,6 +57,7 @@
     {
       "name": "user 4",
       "username": "user4",
+      "password": "password",
       "email": "user4@testing.com",
       "userId": 0, 
       "token": "eyjhbgcioijiuzi1niisinr5cci6imfjy2vzcyj9.eyj1c2vyswqiojysimvtywlsijoidxnlcjraaw50zwdyyxrpb250zxn0lmnvbsisimlhdci6mtu0mjmxodg3nswizxhwijoxntqynda1mjc1lcjhdwqioijodhrwczovl3lvdxjkb21haw4uy29tiiwiaxnzijoiq2hvb3nlrwf0cyisinn1yii6imfub255bw91cyisimp0asi6ijmyywi0nwy2ltbhzgetndbjzi04mthilwu0ody4ownmowy3yyj9.nefr7zzpgbgkwfx536dmsy8lkgqr5jndyrmujs0qkoa",

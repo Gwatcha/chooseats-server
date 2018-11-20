@@ -6,8 +6,9 @@ process.env.NODE_ENV = 'test';
 let chai = require('chai'), should = chai.should(), expect = chai.expect;
 let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
-const app = require('../src/app.js');
-var requester = chai.request(app).keepOpen();
+const app = require('../src/app.js').listen(3030);
+// const requester = chai.request('localhost:3030').keepOpen();
+const requester = chai.request('http://localhost:8080').keepOpen();
 
 // Grab test data ( request bodies )
 var data = require('./json/testdata.json');
@@ -44,6 +45,7 @@ function delService(service, token) {
         expect(err).to.be.null;
         expect(res).to.have.status(200);
         user1.userId = res.id;
+        done();
       });
   });
 }
@@ -64,27 +66,32 @@ function delService(service, token) {
 // this function asserts that the responses do not fail
 function createAndAuthUser(user) {
   console.log('inside create and auth user');
+  console.log('data to send');
+  console.log(JSON.stringify(user));
   requester
     .post('/users')
     .set('Content-Type', 'application/json')
-    .send(JSON.stringify(user1.stringify))
+    .send(JSON.stringify(user))
+  
     .end(function (err, res) {
       expect(err).to.be.null;
       console.log(err);
-      expect(res).to.have.status(200);
       console.log(res);
+      expect(res).to.have.status(200);
       user.userId = res.id;
+      done();
     });
 
   requester
     .post('/authentication')
     .set('Content-Type', 'application/json')
-    .send(JSON.stringify(user1.stringify))
+    .send(JSON.stringify(user1))
     .end(function (err, res) {
       expect(err).to.be.null;
       expect(res).to.have.status(200);
       user1.token = res.body.data;
       console.log(res);
+      done();
     });
 }
 
@@ -96,29 +103,61 @@ describe('System Test', () => {
     // const app = require('../../src/app.js');
     // clear out the DB before starting
     describe('reset server', () => {
-      createAndAuthUser(user1);
-      resetDB(user1.token);
+      it ('should reset the server', () => {
+      requester
+        .post('/users')
+        .set('Content-Type', 'application/json')
+        .send(JSON.stringify(user4))
+      
+        .end(function (err, res) {
+          expect(err).to.be.null;
+          console.log(err);
+          console.log(res);
+          expect(res).to.have.status(200);
+          user.userId = res.id;
+          done();
+        });
+      });
+
+      // createAndAuthUser(user1);
+      // console.log('created a user to reset with');
+      // resetDB(user1.token);
     });
 
-    describe('user creation and authentication', () => {
-      it ('should create & login users', () => {
-        createAndAuthUser(user1);
-        createAndAuthUser(user2);
-        createAndAuthUser(user3);
-        createAndAuthUser(user4);
-      });
-    });
+    // describe('user creation and authentication', () => {
+    //   it ('should create & login users', () => {
+    //     createAndAuthUser(user1);
+    //     createAndAuthUser(user2);
+    //     createAndAuthUser(user3);
+    //     createAndAuthUser(user4);
+    //   });
+    // });
   });
 
   // be sure to close the server before leaving
   after(() => {
-    requester.close()
+    requester.close();
+  });
+
+  describe('Two Users in a \'single\' room.', () => {
+    it ('should create a max room', () => {
+    //   requester
+    //     .post('/rooms')
+    //     .set('Content-Type', 'application/json')
+    //     .send(JSON.stringify(user1))
+    //     .end(function (err, res) {
+    //       expect(err).to.be.null;
+    //       expect(res).to.have.status(200);
+    //       user1.token = res.body.data;
+    //       console.log(res);
+    //     });
+    });
   });
 
 
-
-  describe('Two Users in a \'single\' room.', () => {
-    it ('should create a max room', () => { /* */ });
+  describe('Four Users in a \'random\' room.', () => {
+    it ('should create a random room', () => {
+    });
   });
 });
 
