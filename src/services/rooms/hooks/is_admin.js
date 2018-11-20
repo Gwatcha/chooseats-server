@@ -1,6 +1,4 @@
 module.exports = () => context => {
-  console.log(context);
-
   context.result.data.forEach((room, index) => {
     room.users.forEach((user) => {
       if (user.id == context.params.user.id) {

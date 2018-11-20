@@ -9,16 +9,16 @@ module.exports = async context => {
     await context.app.service('rooms').Model.findOne({
       where: { roomCode: context.data.roomCode },
       include: [{ model: UserModel, through: { attributes: ['admin'], as: 'role' }, attributes: ['id', 'email'] }]
-    }).then( (room) => {
+    }).then((room) => {
 
-      if ( room === undefined ) {
+      if (room === null) {
         throw new errors.NotFound('Room not found');
       }
 
       // this part checks if this user has already joined, and rejects if so,
       // only admins can patch rooms
-      room.users.forEach( (user) => {
-        if ( user.id == context.params.user.id ) {
+      room.users.forEach((user) => {
+        if (user.id == context.params.user.id) {
           throw new errors.BadRequest('This user has already joined this room.');
         }
       });
@@ -36,10 +36,7 @@ module.exports = async context => {
       // Emit an event saying this user is joining this rooms channel. A
       // listener defined in channels.js will add this user to the channel.
       context.app.emit('roomJoined', context);
-    }).catch ( (error) => {
-      throw error;
-    });
-
+    })
     return feathers.SKIP;
   }
 

@@ -5,7 +5,5 @@ module.exports = context => {
     // Emit an event saying this user is joining this rooms channel. A
     // listener defined in channels.js will add this user to the channel.
     context.app.emit('roomCreated', context);
-  }).catch(
-    error => console.log(error)
-  );
+  })
 };
