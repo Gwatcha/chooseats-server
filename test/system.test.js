@@ -8,7 +8,7 @@ let chaiHttp = require('chai-http');
 chai.use(chaiHttp);
 const app = require('../src/app.js').listen(3030);
 // const requester = chai.request('localhost:3030').keepOpen();
-const requester = chai.request('http://localhost:8080').keepOpen();
+const requester = chai.request('http://localhost:3030').keepOpen();
 
 // Grab test data ( request bodies )
 var data = require('./json/testdata.json');
@@ -104,24 +104,24 @@ describe('System Test', () => {
     // clear out the DB before starting
     describe('reset server', () => {
       it ('should reset the server', () => {
-      requester
-        .post('/users')
-        .set('Content-Type', 'application/json')
-        .send(JSON.stringify(user4))
+      // requester
+      //   .post('/users')
+      //   .set('Content-Type', 'application/json')
+      //   .send(JSON.stringify(user4))
       
-        .end(function (err, res) {
-          expect(err).to.be.null;
-          console.log(err);
-          console.log(res);
-          expect(res).to.have.status(200);
-          user.userId = res.id;
-          done();
-        });
-      });
+      //   .end(function (err, res) {
+      //     expect(err).to.be.null;
+      //     console.log(err);
+      //     console.log(res);
+      //     expect(res).to.have.status(200);
+      //     user.userId = res.id;
+      //     done();
+      //   });
 
-      // createAndAuthUser(user1);
-      // console.log('created a user to reset with');
-      // resetDB(user1.token);
+        createAndAuthUser(user1);
+        console.log('created a user to reset with');
+        resetDB(user1.token);
+      });
     });
 
     // describe('user creation and authentication', () => {
