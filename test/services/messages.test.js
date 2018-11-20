@@ -31,6 +31,30 @@ describe('\'messages\' service', () => {
     assert.ok(service, 'Registered the service');
   });
 
+  it('send message', async () => {
+    const text = "Hello World";
+    const params = { user };
+    const result = await app.service('messages').create({ roomId: room.id, text, type: "user" }, params);
+    assert.ok(result.text === text);
+
+    const message = await app.service('messages').get(result.id, params);
+    assert.ok(message.text === text);
+  });
+
+  it('send empty message', async () => {
+    const params = { user };
+    try {
+      await app.service('messages').create({ roomId: room.id, type: "user" }, params);
+    } catch (error) {
+      assert.ok(error.message === 'A message must have text');
+    }
+  });
+
+  it('get messages', async () => {
+    const result = await app.service('messages').find({ query: { roomId: room.userid, $sort: -1, $limit: 30 } })
+    assert.ok(result.data);
+  });
+
   after(async () => {
     var params = { user };
     await app.service('users').remove(user.id, params);

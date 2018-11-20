@@ -8,11 +8,11 @@ module.exports = async context => {
   const restaurantsModel = context.app.service('restaurants').Model;
 
   var restaurant = await restaurantsModel.findOne({
-    where: { roomId : context.data.roomId, google_places_id : context.data.google_places_id }
+    where: { roomId: context.data.roomId, google_places_id: context.data.google_places_id }
   });
 
   // If a restaurant exists, then return it to the user and skip the call
-  if ( restaurant != undefined ) {
+  if (restaurant != undefined) {
     context.result = restaurant;
     return feathers.SKIP;
   }

@@ -44,6 +44,8 @@ describe('\'restaurants\' service', () => {
     const params = { user };
     const restaurant = await app.service('restaurants').create({ google_places_id: '123412412', roomId: room.id }, params);
     const restaurant2 = await app.service('restaurants').create({ google_places_id: '123412412', roomId: room.id }, params);
+
+    assert.ok(restaurant.id === restaurant2.id);
   })
 
   after(async () => {
