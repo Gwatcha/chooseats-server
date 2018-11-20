@@ -5,6 +5,7 @@ const roomCodeLength = 6;
 module.exports = context => {
   console.log(context);
   context.data.roomCode = generate(alphabet, roomCodeLength);
+  context.data.roomState = 'starting';
   return (context);
 };
 

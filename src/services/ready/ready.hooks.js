@@ -1,12 +1,16 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
+const checkFinish = require('../../hooks/checkFinish.js');
+const validate = require('./hooks/validate.js');
+const finishVotingState = require('../../hooks/finishVotingState.js');
+const checkUserInRoom = require('./hooks/checkUserInRoom.js');
 const setUserId = require('../../hooks/set_userId.js');
 
 module.exports = {
   before: {
-    all: [authenticate('jwt')],
+    all: [ authenticate('jwt'), validate ],
     find: [],
     get: [],
-    create: [setUserId],
+    create: [setUserId, checkUserInRoom],
     update: [],
     patch: [],
     remove: [setUserId]
@@ -16,7 +20,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [checkFinish, finishVotingState],
     update: [],
     patch: [],
     remove: []

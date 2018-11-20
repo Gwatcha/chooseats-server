@@ -11,7 +11,9 @@
     "name": "Timothy Leung",
     "email": "me@timothyleung.ca"
   },
-  "contributors": [],
+  "contributors": [
+    "Michael Muszynski"
+  ],
   "bugs": {},
   "directories": {
     "lib": "src",
@@ -23,36 +25,45 @@
   },
   "scripts": {
     "test": "yarn run eslint && yarn run mocha",
-    "eslint": "eslint src/. test/. --config .eslintrc.json ",
+    "eslint": "eslint src/. --config .eslintrc.json ",
+    "coverage": "nyc mocha test/. --recursive --exit ",
     "dev": "nodemon src/",
     "start": "node src/",
-    "mocha": "mocha test/ --recursive --exit"
+    "mocha": " mocha test/. --recursive --exit"
   },
   "dependencies": {
     "@feathersjs/authentication": "^2.1.10",
     "@feathersjs/authentication-jwt": "^2.0.4",
     "@feathersjs/authentication-local": "^1.2.4",
     "@feathersjs/authentication-oauth2": "^1.2.3",
+    "@feathersjs/cli": "^3.8.7",
     "@feathersjs/configuration": "^2.0.3",
     "@feathersjs/errors": "^3.3.4",
     "@feathersjs/express": "^1.2.6",
     "@feathersjs/feathers": "^3.2.3",
     "@feathersjs/socketio": "^3.2.5",
+    "chai": "^4.2.0",
+    "chai-http": "^4.2.0",
     "compression": "^1.7.3",
     "cors": "^2.8.4",
     "dotenv": "^6.0.0",
+    "esprima": "^4.0.1",
     "feathers-authentication-hooks": "^0.3.1",
+    "feathers-memory": "^2.2.0",
     "feathers-sequelize": "^3.1.2",
     "helmet": "^3.13.0",
     "is-empty-object": "^1.1.1",
+    "istanbul": "^0.4.5",
     "lodash": "^4.17.11",
     "nanoid": "^1.2.5",
+    "nyc": "^13.1.0",
     "passport-facebook": "^2.1.1",
     "passport-google-oauth20": "^1.0.0",
     "pg": "^7.4.3",
     "pg-hstore": "^2.3.2",
     "sequelize": "^4.38.0",
     "sequelize-cli": "^4.1.1",
+    "sequelize-mock": "^0.10.2",
     "serve-favicon": "^2.5.0",
     "winston": "^3.0.0"
   },

@@ -19,11 +19,30 @@ module.exports = function (app) {
     roomDesc: {
       type: DataTypes.STRING,
     },
+
+    // style of voting for this room, either, 'single', 'random', 'truerandom',
+    // or 'ranked'
     roomType: {
       type: DataTypes.STRING,
+      defaultValue: 'single'
     },
+
+    // For now state can be either, "starting", "voting", or "done". The state of a room is
+    // set to "done" when all users are ready
+    roomState: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
+
     roomMax: {
       type: DataTypes.INTEGER,
+      defaultValue: 15
+    },
+
+    // this field is set by the server after the last user ready 
+    // it is a foreign key for a restaurant associated with this room
+    selectedRestaurant: {
+      type: DataTypes.STRING,
     }
 
   }, {
@@ -48,6 +67,7 @@ module.exports = function (app) {
     rooms.hasMany(models.votes);
     rooms.hasMany(models.restaurants);
     rooms.hasMany(models.messages);
+    rooms.hasMany(models.ready);
   };
 
   return rooms;

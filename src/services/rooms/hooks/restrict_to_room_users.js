@@ -73,10 +73,10 @@ module.exports = function (options = {}) {
         const fieldArray = field.map(user => user.id.toString());
 
         if (fieldArray.length === 0 || fieldArray.indexOf(id.toString()) < 0) {
-          throw new errors.Forbidden('You do not have the permissions to access this.');
+          throw new errors.BadRequest('You do not have the permissions to access this.');
         }
       } else if (field === undefined || field.toString() !== id.toString()) {
-        throw new errors.Forbidden('You do not have the permissions to access this.');
+        throw new errors.BadRequest('You do not have the permissions to access this.');
       }
 
       return hook;

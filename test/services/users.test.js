@@ -9,7 +9,7 @@ describe('\'users\' service', () => {
     assert.ok(service, 'Registered the service');
   });
 
-  it('creates a user, encrypts password', async () => {
+  /* it('creates a user, encrypts password', async () => {
     const email = 'testaccount@example.com';
     const password = 'password1';
 
@@ -38,5 +38,5 @@ describe('\'users\' service', () => {
     assert.ok(!user.password);
 
     await app.service('users').remove(user.id, { user });
-  });
+  }); */
 });

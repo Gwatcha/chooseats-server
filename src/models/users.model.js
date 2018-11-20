@@ -40,6 +40,7 @@ module.exports = function (app) {
     users.hasMany(models.votes);
     users.hasMany(models.restaurants);
     users.hasMany(models.messages);
+    users.hasMany(models.ready);
   };
 
   return users;
