@@ -15,7 +15,14 @@ var data = require('./json/testdata.json');
 const user1 = data.users[0]; // admin for all rooms
 const user2 = data.users[1];
 const user3 = data.users[2];
-const user4 = data.users[3];
+const user4 = data.users[2];
+
+//now let's login the user before we run any tests
+// var user1 = request.agent(app);
+// var user2 = request.agent(app);
+// var user3 = request.agent(app);
+// var user4 = request.agent(app);
+
 const room1 = data.room1; // single room
 const room2 = data.room2; // random room
 const room3 = data.room3; // truerandom room
@@ -40,11 +47,12 @@ function delService(service, token) {
     requester
       .del(service)
       .set('Content-Type', 'application/json')
-      .send(JSON.strigify(token))
-      .end(function (err, res) {
+      .set('Authorization', token )
+      .end(function (err, res, body) {
+        console.log(body);
         expect(err).to.be.null;
         expect(res).to.have.status(200);
-        user1.userId = res.id;
+        console.log(body);
         done();
       });
   });
@@ -73,10 +81,10 @@ function createAndAuthUser(user) {
     .set('Content-Type', 'application/json')
     .send(JSON.stringify(user))
   
-    .end(function (err, res) {
+    .end(function (err, res, body) {
       expect(err).to.be.null;
       console.log(err);
-      console.log(res);
+      console.log(body);
       expect(res).to.have.status(200);
       user.userId = res.id;
       done();
@@ -86,7 +94,7 @@ function createAndAuthUser(user) {
     .post('/authentication')
     .set('Content-Type', 'application/json')
     .send(JSON.stringify(user1))
-    .end(function (err, res) {
+    .end(function (err, res, body) {
       expect(err).to.be.null;
       expect(res).to.have.status(200);
       user1.token = res.body.data;
@@ -94,6 +102,8 @@ function createAndAuthUser(user) {
       done();
     });
 }
+
+
 
 // --- END Utility Functions for Testing --------
 
@@ -103,7 +113,7 @@ describe('System Test', () => {
     // const app = require('../../src/app.js');
     // clear out the DB before starting
     describe('reset server', () => {
-      it ('should reset the server', () => {
+      it ('create a new user to reset the server with', () => {
       // requester
       //   .post('/users')
       //   .set('Content-Type', 'application/json')
@@ -118,10 +128,12 @@ describe('System Test', () => {
       //     done();
       //   });
 
-        createAndAuthUser(user1);
-        console.log('created a user to reset with');
-        resetDB(user1.token);
+        createAndAuthUser(user3);
       });
+
+      console.log('user token is');
+      console.log(user1.token);
+      resetDB(user1.token);
     });
 
     // describe('user creation and authentication', () => {
