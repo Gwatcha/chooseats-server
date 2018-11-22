@@ -5,22 +5,20 @@
 module.exports = async context => {
   console.log('Finish voting state triggered!');
 
-  const restaurantsModel =  context.app.service('restaurants').Model; 
-  const votesModel =  context.app.service('votes').Model; 
-  const roomsModel = context.app.service('rooms').Model; 
+  const restaurantsModel = context.app.service('restaurants').Model;
+  const votesModel = context.app.service('votes').Model;
+  const roomsModel = context.app.service('rooms').Model;
 
   // get room and room type
   var room;
-  if ( context.path == 'rooms' ) {
+  if (context.path == 'rooms') {
     room = await roomsModel.findOne({
-      where: { id : context.id }
+      where: { id: context.id }
     });
-    // avoid recursion
-    context.data.roomState = 'done';
   }
-  else if (context.path == 'ready' ) {
+  else if (context.path == 'ready') {
     room = await roomsModel.findOne({
-      where: { id : context.data.roomId }
+      where: { id: context.data.roomId }
     });
   }
   else {
@@ -30,10 +28,12 @@ module.exports = async context => {
   const roomId = room.id;
   const roomType = room.roomType;
 
+
+
   // get the restaurants (with votes) for this room 
   const restaurants = await restaurantsModel.findAll({
-    where: { roomId : roomId },
-    include: { model : votesModel }
+    where: { roomId: roomId },
+    include: { model: votesModel }
   });
 
   var i;
@@ -47,13 +47,13 @@ module.exports = async context => {
     // the number of votes for the resaurant at i
     var totalVotes = 0;
     var votes = [];
-    for ( i = 0; i < restaurants.length; i++) {
+    for (i = 0; i < restaurants.length; i++) {
       // count the number of votes for this restaurant
       count = await votesModel.count({
-        where: { restaurantId : restaurants[i].id },
+        where: { restaurantId: restaurants[i].id },
         include: {
-          model : restaurantsModel,
-          where : { roomId : roomId }
+          model: restaurantsModel,
+          where: { roomId: roomId }
         }
       });
 
@@ -68,9 +68,9 @@ module.exports = async context => {
     // random number between 0 and 1
     var randomNum = Math.random();
     var probSum = 0.0;
-    for (i = 0; i < restaurants.length; i++ ) {
-      probSum =  votes[i] / totalVotes;
-      if ( randomNum <= probSum ) {
+    for (i = 0; i < restaurants.length; i++) {
+      probSum = votes[i] / totalVotes;
+      if (randomNum <= probSum) {
         chooseat = restaurants[i];
         break;
       }
@@ -78,7 +78,7 @@ module.exports = async context => {
   }
 
   // true random dosen't care for votes
-  else if ( roomType === 'truerandom' ) {
+  else if (roomType === 'truerandom') {
     chooseat = restaurants[getRandomInt(restaurants.length)];
   }
 
@@ -90,13 +90,13 @@ module.exports = async context => {
     // if we are voting in max and restaurants are tied, select randomly
     // note, this is probably a bad way to do this since I run a lot of queries,
     // but I don't know how to parse json, so yea
-    for ( i = 0; i < restaurants.length; i++) {
+    for (i = 0; i < restaurants.length; i++) {
       // count the number of votes for this restaurant
       count = await votesModel.count({
-        where: { restaurantId : restaurants[i].id },
+        where: { restaurantId: restaurants[i].id },
         include: {
-          model : restaurantsModel,
-          where : { roomId : roomId }
+          model: restaurantsModel,
+          where: { roomId: roomId }
         }
       });
 
@@ -116,10 +116,12 @@ module.exports = async context => {
   }
 
   // patch the room and emit an event to notify users in the rooms channel
-  context.app.service('rooms').patch( roomId,
-    { roomState : 'done', roomId : roomId,  selectedRestaurant : chooseat.google_places_id }, 
-    context.params
-  );
+  if (room.roomState != 'done') {
+    context.app.service('rooms').patch(roomId,
+      { roomState: 'done', selectedRestaurant: chooseat.google_places_id },
+      context.params
+    );
+  }
 
   return context;
 };
