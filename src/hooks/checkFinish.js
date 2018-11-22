@@ -6,24 +6,22 @@
 module.exports = async context => {
   const feathers = require('@feathersjs/feathers');
   // Get the rooms for this roomId
-  const roomsModel = context.app.service('rooms').Model; 
+  const roomsModel = context.app.service('rooms').Model;
   const readyModel = context.app.service('ready').Model;
   const userModel = context.app.service('users').Model;
 
   // If this roomType is true random and the room has been patched with
   // 'voting' we are done immediately
-  if (context.data.roomState != undefined ) {
-    console.log('User patched with ',  context.data.roomState);
+  if (context.data.roomState != undefined) {
+    console.log('User patched with ', context.data.roomState);
     var done = 0;
-    await roomsModel.findOne({
-      where: { id : context.result.id }
-    }).then((room) => { 
-      if ( room.roomType === 'truerandom' && context.data.roomState === 'voting' ) {
-        done = 1;
-      }
-    }).catch( (error) => {
-      throw error;
+    var room = await roomsModel.findOne({
+      where: { id: context.result.id }
     });
+
+    if (room.roomType === 'truerandom' && context.data.roomState === 'voting') {
+      done = 1;
+    }
 
     if (done) {
       // move onto finishVotingState hook
@@ -32,16 +30,16 @@ module.exports = async context => {
     }
   }
 
-  if ( context.path !== 'rooms' ) {
+  if (context.path !== 'rooms') {
     var readyCount = await readyModel.count({
-      where: { roomId : context.data.roomId }
+      where: { roomId: context.data.roomId }
     });
 
     console.log('Ready count is', readyCount);
 
     var userCount = await roomsModel.count({
-      where: { id : context.data.roomId },
-      include: { 
+      where: { id: context.data.roomId },
+      include: {
         model: userModel,
         // group by userId, so we count the number of users in this room
         group: ['userId']
