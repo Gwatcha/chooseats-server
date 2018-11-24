@@ -16,7 +16,17 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [(context)=>{
+      context.app.service('messages').create({
+        roomId: context.data.roomId,
+        type: 'system',
+        text: context.params.user.email + ' has voted!'
+      },
+      context.params
+      );
+
+      return context;
+    }],
     update: [],
     patch: [],
     remove: []

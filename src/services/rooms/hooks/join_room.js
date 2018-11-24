@@ -6,37 +6,44 @@ module.exports = async context => {
   if (context.id === context.data.roomCode) {
     const UserModel = context.app.service('users').Model;
 
-    await context.app.service('rooms').Model.findOne({
+    var room = await context.app.service('rooms').Model.findOne({
       where: { roomCode: context.data.roomCode },
       include: [{ model: UserModel, through: { attributes: ['admin'], as: 'role' }, attributes: ['id', 'email'] }]
-    }).then((room) => {
-
-      if (room === null) {
-        throw new errors.NotFound('Room not found');
-      }
-
-      // this part checks if this user has already joined, and rejects if so,
-      // only admins can patch rooms
-      room.users.forEach((user) => {
-        if (user.id == context.params.user.id) {
-          throw new errors.BadRequest('This user has already joined this room.');
-        }
-      });
-
-      if (room.users.length >= room.roomMax) {
-        throw new errors.BadRequest({
-          error: 'Room Full'
-        });
-      }
-
-      // If we are hear, it means this user is not in the room and the room is
-      // not full, so let them in
-      room.addUser(context.params.user.id, { through: { admin: false } });
-      context.result = room;
-      // Emit an event saying this user is joining this rooms channel. A
-      // listener defined in channels.js will add this user to the channel.
-      context.app.emit('roomJoined', context);
     });
+
+
+    if (room === null) {
+      throw new errors.NotFound('Room not found');
+    }
+
+    // this part checks if this user has already joined, and rejects if so,
+    // only admins can patch rooms
+    room.users.forEach((user) => {
+      if (user.id == context.params.user.id) {
+        throw new errors.BadRequest('This user has already joined this room.');
+      }
+    });
+
+    if (room.users.length >= room.roomMax) {
+      throw new errors.BadRequest({
+        error: 'Room Full'
+      });
+    }
+
+    // If we are hear, it means this user is not in the room and the room is
+    // not full, so let them in
+    room.addUser(context.params.user.id, { through: { admin: false } });
+    context.result = room;
+    // Emit an event saying this user is joining this rooms channel. A
+    // listener defined in channels.js will add this user to the channel.
+    context.app.emit('roomJoined', context);
+
+    context.app.service('messages').create({
+      roomId: room.id,
+      type: 'system',
+      text: context.params.user.email + ' has joined the room!'
+    }, context.params);
+
     return feathers.SKIP;
   }
 

@@ -20,7 +20,17 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [],
+    create: [(context)=>{
+      context.app.service('messages').create({
+        roomId: context.data.roomId,
+        type: 'system',
+        text: 'A new restaurant has been added!'
+      },
+      context.params
+      );
+
+      return context;
+    }],
     update: [],
     patch: [],
     remove: []

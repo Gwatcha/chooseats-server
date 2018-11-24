@@ -117,6 +117,13 @@ module.exports = async context => {
 
   // patch the room and emit an event to notify users in the rooms channel
   if (room.roomState != 'done') {
+    context.app.service('messages').create({
+      roomId: roomId,
+      type: 'system',
+      text: 'A restaurant has been selected!'
+    },
+    context.params
+    );
     context.app.service('rooms').patch(roomId,
       { roomState: 'done', selectedRestaurant: chooseat.google_places_id },
       context.params
