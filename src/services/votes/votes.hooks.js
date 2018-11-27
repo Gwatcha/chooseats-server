@@ -1,5 +1,6 @@
 const { authenticate } = require('@feathersjs/authentication').hooks;
 const setUserId = require('../../hooks/set_userId.js');
+const voted_message = require('./hooks/voted_message');
 
 module.exports = {
   before: {
@@ -16,17 +17,7 @@ module.exports = {
     all: [],
     find: [],
     get: [],
-    create: [(context)=>{
-      context.app.service('messages').create({
-        roomId: context.data.roomId,
-        type: 'system',
-        text: context.params.user.email + ' has voted!'
-      },
-      context.params
-      );
-
-      return context;
-    }],
+    create: [voted_message],
     update: [],
     patch: [],
     remove: []
