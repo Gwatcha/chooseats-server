@@ -1,0 +1,3 @@
+** Chooseats Server
+The backend for the [[https://github.com/Gwatcha/chooseats-mobile-app][chooseats-app]]
+Check out the [[https://chooseats.postman.co/collections/5540548-104122ba-a985-42f1-87c4-59819fd8ac89?workspace=0f9a9aaf-0e26-430c-b876-4070d36edf51][API]]

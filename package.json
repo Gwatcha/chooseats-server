@@ -8,11 +8,11 @@
     "feathers"
   ],
   "author": {
-    "name": "Timothy Leung",
-    "email": "me@timothyleung.ca"
+    "name": "Michael Muszynski",
+    "email": "michael.ampm@gmail.ca"
   },
   "contributors": [
-    "Michael Muszynski"
+    "Timothy Leung"
   ],
   "bugs": {},
   "directories": {
@@ -77,7 +77,6 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "yarn eslint"
     }
   }
 }
